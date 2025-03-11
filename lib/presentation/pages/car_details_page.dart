@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../data/models/car.dart';
 import '../widgets/car_card.dart';
 import '../widgets/more_card.dart';
