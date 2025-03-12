@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../data/models/car.dart';
+import 'RentCarPage.dart';
 
 class MapsDetailsPage extends StatelessWidget {
   final Car car;
@@ -23,8 +24,8 @@ class MapsDetailsPage extends StatelessWidget {
         children: [
           FlutterMap(
             options: MapOptions(
-              initialCenter: LatLng(51, -0.09), // Updated from `center`
-              initialZoom: 13, // Updated from `zoom`
+              initialCenter: LatLng(51, -0.09),
+              initialZoom: 13,
             ),
             children: [
               TileLayer(
@@ -37,7 +38,7 @@ class MapsDetailsPage extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: carDetailsCard(car: car),
+            child: carDetailsCard(car: car, context: context),
           ),
         ],
       ),
@@ -45,7 +46,7 @@ class MapsDetailsPage extends StatelessWidget {
   }
 }
 
-Widget carDetailsCard({required Car car}) {
+Widget carDetailsCard({required Car car, required BuildContext context}) {
   return SizedBox(
     height: 350,
     child: Stack(
@@ -116,9 +117,14 @@ Widget carDetailsCard({required Car car}) {
                   children: [
                     Text('\$${car.pricePerHour}/day', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RentCarPage(car: car)),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:Colors.black, // Fixed styling
+                        backgroundColor: Colors.black,
                       ),
                       child: const Text('Book Now', style: TextStyle(color: Colors.white)),
                     ),
@@ -131,7 +137,7 @@ Widget carDetailsCard({required Car car}) {
         Positioned(
           top: 50,
           right: 20,
-          child: Image.asset('assets/white_car.png'), // Ensure this file exists in assets
+          child: Image.asset('assets/white_car.png'),
         ),
       ],
     ),
